@@ -35,6 +35,14 @@ class PodcastAdapter(private val application: MainActivity, private var episodes
         }
         holder.title.text = episode.title
         holder.date.text = episode.pubDate
+        holder.action.setOnClickListener {
+            val url = episode.downloadLink
+            val intent = Intent(application.applicationContext, PodcastDownloader::class.java)
+            intent.putExtra("title", episode.title)
+            intent.putExtra("receiver", ServiceResultReceiver(application, Handler()))
+            intent.putExtra("url", url)
+            application.startService(intent)
+        }
     }
 
     override fun getItemCount() = episodes.size
@@ -50,5 +58,6 @@ class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val title: TextView = view.findViewById(R.id.item_title)
     val date: TextView = view.findViewById(R.id.item_date)
+    val action: Button = view.findViewById(R.id.item_action)
 
 }

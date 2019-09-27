@@ -8,7 +8,8 @@ data class ItemFeed(
     @ColumnInfo(name = "link") val link: String,
     @ColumnInfo(name = "pub_date") val pubDate: String,
     @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "download_link") val downloadLink: String
+    @ColumnInfo(name = "download_link") val downloadLink: String,
+    @ColumnInfo(name = "download_location") val downloadLocation: String? = null
 ) {
 
     override fun toString(): String {
