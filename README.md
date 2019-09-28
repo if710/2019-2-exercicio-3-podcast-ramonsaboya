@@ -28,7 +28,7 @@ Este exercício é baseado no [exercício anterior](https://github.com/if710/201
 | Passo | Completou? |
 | ------ | ------ |
 | 7 | **sim** |
-| 8 | **não** |
+| 8 | **sim** |
 | 9 | **não** |
 | 10 | **não** |
 | 11 | **não** |
