@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 
-class PodcastAdapter(private val application: MainActivity, private var episodes: List<ItemFeed>) :
+class PodcastAdapter(private val application: MainActivity, private var podcastPlayerService: PodcastPlayerService, private var episodes: List<ItemFeed>) :
     RecyclerView.Adapter<EpisodeHolder>() {
 
     override fun onCreateViewHolder(
@@ -43,6 +44,11 @@ class PodcastAdapter(private val application: MainActivity, private var episodes
             intent.putExtra("url", url)
             application.startService(intent)
         }
+        holder.play.setOnClickListener {
+            if (episode.downloadLocation != null) {
+                podcastPlayerService.play(episode)
+            }
+        }
     }
 
     override fun getItemCount() = episodes.size
@@ -56,6 +62,7 @@ class PodcastAdapter(private val application: MainActivity, private var episodes
 
 class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    val play: ImageView = view.findViewById(R.id.item_play)
     val title: TextView = view.findViewById(R.id.item_title)
     val date: TextView = view.findViewById(R.id.item_date)
     val action: Button = view.findViewById(R.id.item_action)

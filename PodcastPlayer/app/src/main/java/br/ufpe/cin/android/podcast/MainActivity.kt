@@ -1,9 +1,14 @@
 package br.ufpe.cin.android.podcast
 
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +19,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var db: AppDatabase
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PodcastAdapter
     private lateinit var layoutManager: RecyclerView.LayoutManager
+
+    private var podcastPlayerService: PodcastPlayerService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         this.checkAndRequestPermissions()
 
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database"
-        ).fallbackToDestructiveMigration().build()
+        val podcastPlayerIntent = Intent(this, PodcastPlayerService::class.java)
+        startService(podcastPlayerIntent)
+        bindService(podcastPlayerIntent, playerConnection, Context.BIND_AUTO_CREATE)
 
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.addItemDecoration(
@@ -42,11 +49,17 @@ class MainActivity : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        adapter = PodcastAdapter(this, emptyList())
-        recyclerView.adapter = adapter
+        val t = this
+        doAsync {
+            sleep(500)
+            adapter = PodcastAdapter(t, podcastPlayerService!!, emptyList())
+            uiThread {
+                recyclerView.adapter = adapter
+            }
+        }
 
         // Fetch episodes
-        PodcastFetcher(db) { handleEpisodes(it) }.execute("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml")
+        PodcastFetcher(this) { handleEpisodes(it) }.execute("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml")
     }
 
     private fun handleEpisodes(episodes: List<ItemFeed>) {
@@ -55,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     fun updateEpisodePath(title: String, path: String) {
         GlobalScope.launch {
+            val db = ItemFeedDB.getDatabase(applicationContext)
             val episode = db.episodeDao().findByTitle(title)
             db.episodeDao().updateTodo(episode.copy(downloadLocation = path))
         }
@@ -85,9 +99,15 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-}
+    private val playerConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            podcastPlayerService = null
+        }
 
-@Database(entities = [ItemFeed::class], version = 2)
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun episodeDao(): ItemFeedDao
+        override fun onServiceConnected(p0: ComponentName?, b: IBinder?) {
+            val binder = b as PodcastPlayerService.PodcastBinder
+            podcastPlayerService = binder.service
+        }
+    }
+
 }
