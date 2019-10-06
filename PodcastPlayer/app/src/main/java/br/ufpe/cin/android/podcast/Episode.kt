@@ -9,8 +9,25 @@ data class Episode(
     @ColumnInfo(name = "pub_date") val pubDate: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "download_link") val downloadLink: String,
-    @ColumnInfo(name = "download_location") val downloadLocation: String? = null
+    @ColumnInfo(name = "download_location") var downloadLocation: String? = null,
+    @ColumnInfo(name = "current_position") var currentPosition: Int = 0
 ) {
+
+    companion object {
+
+        fun updateCurrentPosition(newEpisodes: List<Episode>, currentEpisodes: List<Episode>) {
+            val positions = HashMap<String, Int>()
+
+            for (episode in currentEpisodes) {
+                positions[episode.title] = episode.currentPosition
+            }
+
+            for (episode in newEpisodes) {
+                episode.currentPosition = positions[episode.title] ?: 0
+            }
+        }
+
+    }
 
     override fun toString(): String {
         return title

@@ -27,18 +27,14 @@ class FileManager(private val activity: AppCompatActivity, private val directory
     }
 
     fun matchDownloadedEpisodes(episodes: List<Episode>): List<Episode> {
-        val updatedEpisodes = ArrayList<Episode>()
-
         for (episode in episodes) {
             val file = File(directory, "${episode.title}.mp3")
             if (file.exists()) {
-                updatedEpisodes.add(episode.copy(downloadLocation = file.absolutePath))
-            } else {
-                updatedEpisodes.add(episode)
+                episode.downloadLocation = file.absolutePath
             }
         }
 
-        return updatedEpisodes
+        return episodes
     }
 
     fun fileForEpisodeTitle(title: String): File {
@@ -51,7 +47,8 @@ class FileManager(private val activity: AppCompatActivity, private val directory
 
     fun updateEpisodePath(title: String, filePath: String) {
         val db = EpisodeDB.getDatabase(activity.applicationContext)
-        val episode = db.episodeDAO().findByTitle(title).copy(downloadLocation = filePath)
+        val episode = db.episodeDAO().findByTitle(title)
+        episode.downloadLocation = filePath
         db.episodeDAO().updateEpisode(episode)
     }
 

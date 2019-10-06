@@ -13,6 +13,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import org.jetbrains.anko.doAsync
 import java.io.FileInputStream
 
 class PodcastPlayerService : Service() {
@@ -24,7 +25,7 @@ class PodcastPlayerService : Service() {
     private lateinit var mPlayer: MediaPlayer
     private val mBinder = PodcastBinder()
 
-    private var currentItemFeed: Episode? = null
+    private var currentEpisode: Episode? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -65,6 +66,7 @@ class PodcastPlayerService : Service() {
     }
 
     override fun onDestroy() {
+        saveProgress()
         mPlayer.release()
         super.onDestroy()
     }
@@ -74,14 +76,17 @@ class PodcastPlayerService : Service() {
     }
 
     fun play(episode: Episode) {
-        if (episode != currentItemFeed) {
+        if (episode != currentEpisode) {
+            saveProgress()
+
             val fis = FileInputStream(episode.downloadLocation!!)
             mPlayer.reset()
             mPlayer.setDataSource(fis.fd)
             mPlayer.prepare()
+            mPlayer.seekTo(episode.currentPosition ?: 0)
             fis.close()
 
-            currentItemFeed = episode
+            currentEpisode = episode
 
             mPlayer.start()
         } else {
@@ -89,6 +94,21 @@ class PodcastPlayerService : Service() {
                 mPlayer.start()
             } else {
                 mPlayer.pause()
+                saveProgress()
+            }
+        }
+    }
+
+    private fun saveProgress() {
+        if (currentEpisode != null) {
+            val currPos = mPlayer.currentPosition
+
+            currentEpisode!!.currentPosition = currPos
+
+            doAsync {
+                val db = EpisodeDB.getDatabase(applicationContext)
+
+                db.episodeDAO().updateEpisode(currentEpisode!!)
             }
         }
     }
@@ -96,8 +116,8 @@ class PodcastPlayerService : Service() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (currentItemFeed != null && action == PLAY_ACTION) {
-                play(currentItemFeed!!)
+            if (currentEpisode != null && action == PLAY_ACTION) {
+                play(currentEpisode!!)
             }
         }
     }

@@ -18,6 +18,8 @@ class PodcastFetcher : AsyncTask<String, Int, List<Episode>>() {
             val feed = url.readText()
             episodes = FileManager.getInstance().matchDownloadedEpisodes(Parser.parse(feed))
 
+            Episode.updateCurrentPosition(episodes, db.episodeDAO().getAll())
+
             db.episodeDAO().insertAll(*episodes.toTypedArray())
         } catch (e: Exception) {
             episodes = db.episodeDAO().getAll()

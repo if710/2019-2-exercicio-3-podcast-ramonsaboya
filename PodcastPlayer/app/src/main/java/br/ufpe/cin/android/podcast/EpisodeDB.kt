@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(Episode::class), version = 1)
+@Database(entities = [Episode::class], version = 1)
 abstract class EpisodeDB : RoomDatabase() {
 
     abstract fun episodeDAO(): EpisodeDAO
@@ -21,7 +21,7 @@ abstract class EpisodeDB : RoomDatabase() {
                         ctx.applicationContext,
                         EpisodeDB::class.java,
                         "episodes.db"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
             return INSTANCE!!

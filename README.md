@@ -33,5 +33,5 @@ Este exercício é baseado no [exercício anterior](https://github.com/if710/201
 | 10 | **sim** |
 | 11 | **sim** |
 | 12 | **sim** |
-| 13 | **não** |
+| 13 | **sim** |
 | 14 | **não** |
