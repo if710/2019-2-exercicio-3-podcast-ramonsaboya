@@ -6,6 +6,7 @@ import android.os.*
 import java.io.FileOutputStream
 import java.net.URL
 import android.widget.Toast
+import org.jetbrains.anko.doAsync
 
 class PodcastDownloader : IntentService("PodcastDownloader") {
 
@@ -60,10 +61,17 @@ class ServiceResultReceiver(handler: Handler) : ResultReceiver(handler) {
             PodcastDownloader.DOWNLOAD_SUCCESS -> {
                 val filePath = resultData.getString("file_path")!!
                 val title = resultData.getString("title")!!
-                FileManager.getInstance().updateEpisodePath(title, filePath)
+
+                doAsync {
+                    FileManager.getInstance().updateEpisodePath(title, filePath)
+
+                    val db = EpisodeDB.getDatabase(MainActivity.applicationContext())
+                    MainActivity.updateEpisodes(db.episodeDAO().getAll())
+                }
+
                 Toast.makeText(
                     MainActivity.applicationContext(),
-                    "Podcast downloaded: $filePath",
+                    "Podcast downloaded",
                     Toast.LENGTH_SHORT
                 ).show()
             }

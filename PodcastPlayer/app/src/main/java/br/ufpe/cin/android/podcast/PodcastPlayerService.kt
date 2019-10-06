@@ -1,6 +1,21 @@
 package br.ufpe.cin.android.podcast
 
-/*class PodcastPlayerService : Service() {
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.media.MediaPlayer
+import android.os.Binder
+import android.os.Build
+import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import java.io.FileInputStream
+
+class PodcastPlayerService : Service() {
 
     companion object {
         private const val PLAY_ACTION = "br.ufpe.cin.android.podcast.PlayAction"
@@ -9,7 +24,7 @@ package br.ufpe.cin.android.podcast
     private lateinit var mPlayer: MediaPlayer
     private val mBinder = PodcastBinder()
 
-    private var currentItemFeed : ItemFeed? = null
+    private var currentItemFeed : Episode? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -56,15 +71,15 @@ package br.ufpe.cin.android.podcast
         return mBinder
     }
 
-    fun play(itemFeed: ItemFeed) {
-        if (itemFeed != currentItemFeed) {
-            val fis = FileInputStream(itemFeed.downloadLocation!!)
+    fun play(episode: Episode) {
+        if (episode != currentItemFeed) {
+            val fis = FileInputStream(episode.downloadLocation!!)
             mPlayer.reset()
             mPlayer.setDataSource(fis.fd)
             mPlayer.prepare()
             fis.close()
 
-            currentItemFeed = itemFeed
+            currentItemFeed = episode
 
             mPlayer.start()
         } else {
@@ -90,4 +105,4 @@ package br.ufpe.cin.android.podcast
             get() = this@PodcastPlayerService
     }
 
-}*/
+}

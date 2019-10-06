@@ -26,10 +26,10 @@
         </activity>
 
         <service android:name=".PodcastDownloader" />
-<!--        <service-->
-<!--            android:name=".PodcastPlayerService"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true" />-->
+        <service
+            android:name=".PodcastPlayerService"
+            android:enabled="true"
+            android:exported="true" />
 
     </application>
 

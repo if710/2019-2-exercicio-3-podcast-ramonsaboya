@@ -52,11 +52,8 @@ class FileManager(private val activity: AppCompatActivity, private val directory
 
     fun updateEpisodePath(title: String, filePath: String) {
         val db = EpisodeDB.getDatabase(activity.applicationContext)
-
-        doAsync {
-            val episode = db.episodeDAO().findByTitle(title).copy(downloadLocation = filePath)
-            db.episodeDAO().updateEpisode(episode)
-        }
+        val episode = db.episodeDAO().findByTitle(title).copy(downloadLocation = filePath)
+        db.episodeDAO().updateEpisode(episode)
     }
 
 }

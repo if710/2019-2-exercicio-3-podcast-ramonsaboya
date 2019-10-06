@@ -1,17 +1,21 @@
 package br.ufpe.cin.android.podcast
 
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
+import java.io.File
+import java.util.*
 
-class PodcastAdapter(private val application: MainActivity, private var episodes: List<Episode>) :
+class PodcastAdapter(private var episodes: List<Episode> = emptyList()) :
     RecyclerView.Adapter<EpisodeHolder>() {
+
+    var podcastPlayerService: PodcastPlayerService? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,46 +27,63 @@ class PodcastAdapter(private val application: MainActivity, private var episodes
     }
 
     override fun onBindViewHolder(holder: EpisodeHolder, position: Int) {
+        val context = MainActivity.applicationContext()
+
         val episode = episodes[position]
         holder.itemView.setOnClickListener {
             val intent = Intent(
-                application.applicationContext,
+                context,
                 EpisodeDetailActivity::class.java
             )
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_TITLE, episode.title)
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_DESCRIPTION, episode.description)
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_LINK, episode.link)
-            application.startActivity(intent)
+            context.startActivity(intent)
         }
+
+        if (episode.downloadLocation == null) {
+            holder.action.setImageIcon(Icon.createWithResource(context, R.drawable.download))
+        } else {
+            holder.action.setImageIcon(Icon.createWithResource(context, R.drawable.play))
+        }
+
         holder.title.text = episode.title
         holder.date.text = episode.pubDate
         holder.action.setOnClickListener {
-            val url = episode.downloadLink
-            val intent = Intent(application.applicationContext, PodcastDownloader::class.java)
-            intent.putExtra("title", episode.title)
-            intent.putExtra(
-                "receiver",
-                ServiceResultReceiver(Handler())
-            )
-            intent.putExtra("url", url)
-            application.startService(intent)
+            if (episode.downloadLocation == null) {
+                val url = episode.downloadLink
+                val intent = Intent(context, PodcastDownloader::class.java)
+                intent.putExtra("title", episode.title)
+                intent.putExtra(
+                    "receiver",
+                    ServiceResultReceiver(Handler())
+                )
+                intent.putExtra("url", url)
+                context.startService(intent)
+            } else {
+                podcastPlayerService?.play(episode)
+            }
         }
     }
 
     override fun getItemCount() = episodes.size
 
     fun updateList(episodes: List<Episode>) {
-        this.episodes = episodes
-        notifyItemInserted(episodes.size);
+        if (this.episodes.isEmpty()) {
+            this.episodes = episodes
+            notifyItemInserted(episodes.size)
+        } else {
+            this.episodes = episodes
+            notifyItemRangeChanged(0, episodes.size)
+        }
     }
 
 }
 
 class EpisodeHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    val play: ImageView = view.findViewById(R.id.item_play)
+    val action: ImageView = view.findViewById(R.id.item_action)
     val title: TextView = view.findViewById(R.id.item_title)
     val date: TextView = view.findViewById(R.id.item_date)
-    val action: Button = view.findViewById(R.id.item_action)
 
 }
