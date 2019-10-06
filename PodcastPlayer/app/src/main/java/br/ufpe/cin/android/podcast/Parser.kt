@@ -10,9 +10,9 @@ import java.util.ArrayList
 
 object Parser {
 
-    //Este metodo faz o parsing de RSS gerando objetos ItemFeed
+    //Este metodo faz o parsing de RSS gerando objetos Episode
     @Throws(XmlPullParserException::class, IOException::class)
-    fun parse(rssFeed: String): List<ItemFeed> {
+    fun parse(rssFeed: String): List<Episode> {
         val factory = XmlPullParserFactory.newInstance()
         val xpp = factory.newPullParser()
         xpp.setInput(StringReader(rssFeed))
@@ -21,8 +21,8 @@ object Parser {
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
-    fun readRss(parser: XmlPullParser): List<ItemFeed> {
-        val items = ArrayList<ItemFeed>()
+    fun readRss(parser: XmlPullParser): List<Episode> {
+        val items = ArrayList<Episode>()
         parser.require(XmlPullParser.START_TAG, null, "rss")
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) {
@@ -39,8 +39,8 @@ object Parser {
     }
 
     @Throws(IOException::class, XmlPullParserException::class)
-    fun readChannel(parser: XmlPullParser): List<ItemFeed> {
-        val items = ArrayList<ItemFeed>()
+    fun readChannel(parser: XmlPullParser): List<Episode> {
+        val items = ArrayList<Episode>()
         parser.require(XmlPullParser.START_TAG, null, "channel")
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) {
@@ -57,7 +57,7 @@ object Parser {
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
-    fun readItem(parser: XmlPullParser): ItemFeed {
+    fun readItem(parser: XmlPullParser): Episode {
         var title: String? = null
         var link: String? = null
         var pubDate: String? = null
@@ -84,7 +84,13 @@ object Parser {
                 skip(parser)
             }
         }
-        return ItemFeed(title!!, link!!, pubDate!!, description!!, downloadLink!!)
+        return Episode(
+            title!!,
+            link!!,
+            pubDate!!,
+            description!!,
+            downloadLink!!
+        )
     }
 
     // Processa tags de forma parametrizada no feed.
@@ -119,7 +125,5 @@ object Parser {
             }
         }
     }
-
-    /**/
 
 }
