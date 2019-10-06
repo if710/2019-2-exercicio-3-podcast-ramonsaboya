@@ -24,7 +24,7 @@ class PodcastPlayerService : Service() {
     private lateinit var mPlayer: MediaPlayer
     private val mBinder = PodcastBinder()
 
-    private var currentItemFeed : Episode? = null
+    private var currentItemFeed: Episode? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -33,7 +33,8 @@ class PodcastPlayerService : Service() {
         mPlayer.isLooping = true
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel = NotificationChannel("1", "notification", NotificationManager.IMPORTANCE_DEFAULT)
+            val mChannel =
+                NotificationChannel("1", "notification", NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(mChannel)
         }
@@ -45,7 +46,8 @@ class PodcastPlayerService : Service() {
         val playPendingIntent = PendingIntent.getBroadcast(applicationContext, 0, playIntent, 0)
 
         val notification = NotificationCompat.Builder(
-            applicationContext,"1")
+            applicationContext, "1"
+        )
             .setSmallIcon(android.R.drawable.ic_media_play)
             .addAction(NotificationCompat.Action(R.drawable.play, "Play/Pause", playPendingIntent))
             .setOngoing(true)

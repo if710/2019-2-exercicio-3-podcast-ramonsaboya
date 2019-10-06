@@ -27,24 +27,24 @@ class PodcastAdapter(private var episodes: List<Episode> = emptyList()) :
     }
 
     override fun onBindViewHolder(holder: EpisodeHolder, position: Int) {
-        val context = MainActivity.applicationContext()
+        val mainActivity = MainActivity.getActivity()
 
         val episode = episodes[position]
         holder.itemView.setOnClickListener {
             val intent = Intent(
-                context,
+                mainActivity,
                 EpisodeDetailActivity::class.java
             )
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_TITLE, episode.title)
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_DESCRIPTION, episode.description)
             intent.putExtra(EpisodeDetailActivity.INTENT_EPISODE_LINK, episode.link)
-            context.startActivity(intent)
+            mainActivity.startActivity(intent)
         }
 
         if (episode.downloadLocation == null) {
-            holder.action.setImageIcon(Icon.createWithResource(context, R.drawable.download))
+            holder.action.setImageIcon(Icon.createWithResource(mainActivity, R.drawable.download))
         } else {
-            holder.action.setImageIcon(Icon.createWithResource(context, R.drawable.play))
+            holder.action.setImageIcon(Icon.createWithResource(mainActivity, R.drawable.play))
         }
 
         holder.title.text = episode.title
@@ -52,14 +52,14 @@ class PodcastAdapter(private var episodes: List<Episode> = emptyList()) :
         holder.action.setOnClickListener {
             if (episode.downloadLocation == null) {
                 val url = episode.downloadLink
-                val intent = Intent(context, PodcastDownloader::class.java)
+                val intent = Intent(mainActivity, PodcastDownloader::class.java)
                 intent.putExtra("title", episode.title)
                 intent.putExtra(
                     "receiver",
                     ServiceResultReceiver(Handler())
                 )
                 intent.putExtra("url", url)
-                context.startService(intent)
+                mainActivity.startService(intent)
             } else {
                 podcastPlayerService?.play(episode)
             }

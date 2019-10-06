@@ -2,7 +2,6 @@ package br.ufpe.cin.android.podcast
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
-import org.jetbrains.anko.doAsync
 import java.io.File
 
 class FileManager(private val activity: AppCompatActivity, private val directory: File) {

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PodcastPlayer</string>
     <string name="action_download">Download</string>
+    <string name="config_button">Config</string>
+    <string name="default_feed_url">https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml</string>
+    <string name="default_update_interval">30</string>
 </resources>

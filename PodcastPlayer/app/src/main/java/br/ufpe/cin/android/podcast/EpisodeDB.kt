@@ -7,10 +7,13 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(Episode::class), version = 1)
 abstract class EpisodeDB : RoomDatabase() {
+
     abstract fun episodeDAO(): EpisodeDAO
 
     companion object {
+
         private var INSTANCE: EpisodeDB? = null
+
         fun getDatabase(ctx: Context): EpisodeDB {
             if (INSTANCE == null) {
                 synchronized(EpisodeDB::class) {
@@ -23,5 +26,7 @@ abstract class EpisodeDB : RoomDatabase() {
             }
             return INSTANCE!!
         }
+
     }
+
 }

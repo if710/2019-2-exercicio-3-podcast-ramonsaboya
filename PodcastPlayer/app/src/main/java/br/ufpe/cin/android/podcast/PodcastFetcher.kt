@@ -1,10 +1,13 @@
 package br.ufpe.cin.android.podcast
 
+import android.content.Context
 import android.os.AsyncTask
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+import org.jetbrains.anko.runOnUiThread
 import java.net.URL
 
-class PodcastFetcher(val processItems: (List<Episode>) -> Unit) :
-    AsyncTask<String, Int, List<Episode>>() {
+class PodcastFetcher : AsyncTask<String, Int, List<Episode>>() {
 
     override fun doInBackground(vararg paths: String): List<Episode> {
         var episodes: List<Episode>
@@ -24,7 +27,20 @@ class PodcastFetcher(val processItems: (List<Episode>) -> Unit) :
     }
 
     override fun onPostExecute(items: List<Episode>) {
-        processItems(items)
+        MainActivity.updateEpisodes(items)
+    }
+
+    class UpdateEpisodes(context: Context, workerParams: WorkerParameters) :
+        Worker(context, workerParams) {
+
+        override fun doWork(): Result {
+            applicationContext.runOnUiThread {
+                PodcastFetcher().execute(PreferencesManager.getInstance().getFeedURL())
+            }
+
+            return Result.success()
+        }
+
     }
 
 }
