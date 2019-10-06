@@ -6,13 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7052749b-3d2d-44cc-a4fe-46d8bd0cee4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/Episode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/Episode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/EpisodeDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/EpisodeDB.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastFetcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastFetcher.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt" afterDir="false" />
-    </list>
+    <list default="true" id="7052749b-3d2d-44cc-a4fe-46d8bd0cee4d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,15 +35,6 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastDownloader.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="804">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastFetcher.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
@@ -58,11 +43,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/Episode.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
               <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+              <folding>
+                <element signature="e#37#577#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
+            <state relative-caret-position="1230">
+              <caret line="99" column="50" lean-forward="true" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -104,22 +101,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PreferencesManager.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-              <folding>
-                <element signature="e#37#154#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+            <state relative-caret-position="960">
+              <caret line="64" column="46" selection-start-line="64" selection-start-column="46" selection-end-line="64" selection-end-column="46" />
               <folding>
                 <element signature="e#37#134#0" expanded="true" />
               </folding>
@@ -187,11 +172,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/MainActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PreferencesActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/EpisodeDB.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastFetcher.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/Episode.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt" />
       </list>
     </option>
   </component>
@@ -417,7 +402,7 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Find" />
-      <window_info anchor="bottom" id="Run" order="0" visible="true" weight="0.32919708" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.32919708" />
       <window_info anchor="bottom" id="Logcat" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
@@ -436,13 +421,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/br/ufpe/cin/android/podcast/AppDatabase.java" />
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-29/android/media/MediaPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="862" column="30" selection-start-line="862" selection-start-column="30" selection-end-line="862" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/app.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -535,16 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="116" selection-start-line="116" selection-end-line="116" />
-          <folding>
-            <element signature="e#37#577#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PermissionManager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
@@ -596,27 +564,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1185">
           <caret line="89" selection-start-line="89" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding>
-            <element signature="e#37#134#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -638,6 +589,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/FileManager.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="46" selection-start-line="64" selection-start-column="46" selection-end-line="64" selection-end-column="46" />
+          <folding>
+            <element signature="e#37#134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding>
+            <element signature="e#37#577#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-29/android/media/MediaPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="1906" column="16" selection-start-line="1906" selection-start-column="16" selection-end-line="1906" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/ufpe/cin/android/podcast/PodcastPlayerService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="99" column="50" lean-forward="true" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="50" />
         </state>
       </provider>
     </entry>

@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.io.FileInputStream
 
 class PodcastPlayerService : Service() {
@@ -32,6 +33,19 @@ class PodcastPlayerService : Service() {
 
         mPlayer = MediaPlayer()
         mPlayer.isLooping = true
+        mPlayer.setOnCompletionListener {
+            if (currentEpisode != null) {
+                doAsync {
+                    FileManager.getInstance().eraseEpisode(currentEpisode!!)
+                    val episodes =
+                        EpisodeDB.getDatabase(MainActivity.applicationContext()).episodeDAO()
+                            .getAll()
+                    uiThread {
+                        MainActivity.updateEpisodes(episodes)
+                    }
+                }
+            }
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mChannel =
@@ -83,7 +97,7 @@ class PodcastPlayerService : Service() {
             mPlayer.reset()
             mPlayer.setDataSource(fis.fd)
             mPlayer.prepare()
-            mPlayer.seekTo(episode.currentPosition ?: 0)
+            mPlayer.seekTo(episode.currentPosition)
             fis.close()
 
             currentEpisode = episode

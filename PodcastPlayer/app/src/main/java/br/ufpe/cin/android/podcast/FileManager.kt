@@ -52,4 +52,17 @@ class FileManager(private val activity: AppCompatActivity, private val directory
         db.episodeDAO().updateEpisode(episode)
     }
 
+    fun eraseEpisode(episode: Episode) {
+        episode.downloadLocation = null
+        episode.currentPosition = 0
+
+        val file = File(directory.path, "${episode.title}.mp3")
+        if (file.exists()) {
+            file.delete()
+        }
+
+        val db = EpisodeDB.getDatabase(activity.applicationContext)
+        db.episodeDAO().updateEpisode(episode)
+    }
+
 }
